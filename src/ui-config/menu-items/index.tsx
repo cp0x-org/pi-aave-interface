@@ -1,10 +1,6 @@
-import {
-  ArrowCircleRightIcon,
-  BookOpenIcon,
-  CreditCardIcon,
-  QuestionMarkCircleIcon,
-} from '@heroicons/react/outline';
+import { CreditCardIcon, LinkIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
+import { Telegram } from '@mui/icons-material';
 import { ReactNode } from 'react';
 import { ROUTES } from 'src/components/primitives/Link';
 import { ENABLE_TESTNET } from 'src/utils/marketsAndNetworksConfig';
@@ -61,19 +57,14 @@ interface MoreMenuItem extends Navigation {
 
 const moreMenuItems: MoreMenuItem[] = [
   {
-    link: 'https://docs.aave.com/faq/',
-    title: t`FAQ`,
-    icon: <QuestionMarkCircleIcon />,
+    link: 'https://pi.cp0x.com/',
+    title: 'About cp0x',
+    icon: <LinkIcon />,
   },
   {
-    link: 'https://docs.aave.com/portal/',
-    title: t`Developers`,
-    icon: <BookOpenIcon />,
-  },
-  {
-    link: 'https://legacy-markets.aave.com/',
-    title: t`Legacy Markets`,
-    icon: <ArrowCircleRightIcon />,
+    link: 'https://t.me/cp0xdotcom',
+    title: 'Telegram',
+    icon: <Telegram />,
   },
 ];
 
