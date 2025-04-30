@@ -92,10 +92,10 @@ export function AppHeader() {
   const sm = useMediaQuery(breakpoints.down('sm'));
   const smd = useMediaQuery('(max-width:1120px)');
 
-  const [visitedSwitch, setVisitedSwitch] = useState(() => {
-    if (typeof window === 'undefined') return true;
-    return Boolean(localStorage.getItem(SWITCH_VISITED_KEY));
-  });
+  // const [visitedSwitch, setVisitedSwitch] = useState(() => {
+  //   if (typeof window === 'undefined') return true;
+  //   return Boolean(localStorage.getItem(SWITCH_VISITED_KEY));
+  // });
 
   const [mobileDrawerOpen, setMobileDrawerOpen, currentMarketData] = useRootStore(
     useShallow((state) => [
@@ -145,7 +145,7 @@ export function AppHeader() {
 
   const handleSwitchClick = () => {
     localStorage.setItem(SWITCH_VISITED_KEY, 'true');
-    setVisitedSwitch(true);
+    // setVisitedSwitch(true);
     openSwitch();
   };
 
@@ -276,7 +276,7 @@ export function AppHeader() {
 
         <NoSsr>
           <StyledBadge
-            invisible={visitedSwitch}
+            invisible={true}
             variant="dot"
             badgeContent=""
             color="secondary"
