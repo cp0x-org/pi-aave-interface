@@ -1,151 +1,46 @@
-import { ChainId } from '@aave/contract-helpers';
 import { Box } from '@mui/material';
 import React, { ReactNode } from 'react';
-import AnalyticsConsent from 'src/components/Analytics/AnalyticsConsent';
-// import { useModalContext } from 'src/hooks/useModal';
-import { SupportModal } from 'src/layouts/SupportModal';
-import { FORK_ENABLED } from 'src/utils/marketsAndNetworksConfig';
+import { ROUTES } from 'src/components/primitives/Link';
 
 import { AppFooter } from './AppFooter';
 import { AppHeader } from './AppHeader';
 import TopBarNotify from './TopBarNotify';
 
-const getCampaignConfigs = () => ({
-  [ChainId.base]: {
-    notifyText: 'Aave V4 is now live on Ethereum mainnet.',
-    buttonText: 'Try it out here',
-    buttonAction: {
-      type: 'url' as const,
-      value: 'https://pro.aave.com/',
-      target: '_blank' as const,
-    },
-    bannerVersion: 'aave-pro-mainnet-v0',
-  },
-
-  [ChainId.sonic]: {
-    notifyText: 'Aave V4 is now live on Ethereum mainnet.',
-    buttonText: 'Try it out here',
-    buttonAction: {
-      type: 'url' as const,
-      value: 'https://pro.aave.com/',
-      target: '_blank' as const,
-    },
-    bannerVersion: 'aave-pro-mainnet-v0',
-    // icon: '/icons/networks/sonic.svg',
-  },
-
-  [ChainId.mainnet]: {
-    notifyText: 'Aave V4 is now live on Ethereum mainnet.',
-    buttonText: 'Try it out here',
-    buttonAction: {
-      type: 'url' as const,
-      value: 'https://pro.aave.com/',
-      target: '_blank' as const,
-    },
-    bannerVersion: 'aave-pro-mainnet-v0',
-  },
-
-  [ChainId.polygon]: {
-    notifyText: 'Aave V4 is now live on Ethereum mainnet.',
-    buttonText: 'Try it out here',
-    buttonAction: {
-      type: 'url' as const,
-      value: 'https://pro.aave.com/',
-      target: '_blank' as const,
-    },
-    bannerVersion: 'aave-pro-mainnet-v0',
-    // icon: '/icons/networks/polygon.svg',
-  },
-
-  [ChainId.avalanche]: {
-    notifyText: 'Aave V4 is now live on Ethereum mainnet.',
-    buttonText: 'Try it out here',
-    buttonAction: {
-      type: 'url' as const,
-      value: 'https://pro.aave.com/',
-      target: '_blank' as const,
-    },
-    bannerVersion: 'aave-pro-mainnet-v0',
-    // icon: '/icons/networks/avalanche.svg',
-  },
-
-  [ChainId.arbitrum_one]: {
-    notifyText: 'Aave V4 is now live on Ethereum mainnet.',
-    buttonText: 'Try it out here',
-    buttonAction: {
-      type: 'url' as const,
-      value: 'https://pro.aave.com/',
-      target: '_blank' as const,
-    },
-    bannerVersion: 'aave-pro-mainnet-v0',
-    // icon: '/icons/networks/arbitrum.svg',
-  },
-
-  [ChainId.optimism]: {
-    notifyText: 'Aave V4 is now live on Ethereum mainnet.',
-    buttonText: 'Try it out here',
-    buttonAction: {
-      type: 'url' as const,
-      value: 'https://pro.aave.com/',
-      target: '_blank' as const,
-    },
-    bannerVersion: 'aave-pro-mainnet-v0',
-    // icon: '/icons/networks/optimism.svg',
-  },
-
-  [ChainId.xdai]: {
-    notifyText: 'Aave V4 is now live on Ethereum mainnet.',
-    buttonText: 'Try it out here',
-    buttonAction: {
-      type: 'url' as const,
-      value: 'https://pro.aave.com/',
-      target: '_blank' as const,
-    },
-    bannerVersion: 'aave-pro-mainnet-v0',
-    // icon: '/icons/networks/gnosis.svg',
-  },
-
-  [ChainId.bnb]: {
-    notifyText: 'Aave V4 is now live on Ethereum mainnet.',
-    buttonText: 'Try it out here',
-    buttonAction: {
-      type: 'url' as const,
-      value: 'https://pro.aave.com/',
-      target: '_blank' as const,
-    },
-    bannerVersion: 'aave-pro-mainnet-v0',
-    // icon: '/icons/networks/binance.svg',
-  },
-});
-
-// For defining Route specific campaigns if needed in future
-const routeCampaigns = {
-  // '/sgho': {
-  //   notifyText: "Earn 4% higher yield on savings GHO using OKX's GHO staking vault.",
-  //   buttonText: 'Learn more',
-  //   buttonAction: {
-  //     type: 'url' as const,
-  //     value: 'https://web3.okx.com/earn/activity/aave-gho',
-  //     target: '_blank' as const,
-  //   },
-  //   bannerVersion: 'sgho-okx-v1',
-  // },
-};
+// const SwitchIcon = () => (
+//   <svg
+//     xmlns="http://www.w3.org/2000/svg"
+//     fill="none"
+//     viewBox="0 0 24 24"
+//     strokeWidth="1.5"
+//     stroke="currentColor"
+//     style={{ marginLeft: '8px', width: '24px', height: '24px' }}
+//   >
+//     <path
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//       d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
+//     />
+//   </svg>
+// );
 
 export function MainLayout({ children }: { children: ReactNode }) {
-  const campaignConfigs = getCampaignConfigs();
-
+  const APP_BANNER_VERSION = '7.0.0';
+  // const currentMarket = useRootStore((state) => state.currentMarket);
   return (
     <>
-      <TopBarNotify campaigns={campaignConfigs} routeCampaigns={routeCampaigns} />
+      <TopBarNotify
+        learnMoreLink={ROUTES.staking}
+        notifyText="Aave Safety Module has been upgraded to Umbrella"
+        bannerVersion={APP_BANNER_VERSION}
+      />
 
       <AppHeader />
       <Box component="main" sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
         {children}
       </Box>
       <AppFooter />
-      <SupportModal />
-      {FORK_ENABLED ? null : <AnalyticsConsent />}
+      {/*<FeedbackModal />*/}
+      {/*{FORK_ENABLED ? null : <AnalyticsConsent />}*/}
     </>
   );
 }

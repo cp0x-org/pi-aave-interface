@@ -1,13 +1,6 @@
-import { Trans } from '@lingui/macro';
-import { GitHub, Instagram, LinkedIn, X } from '@mui/icons-material';
-import { Box, styled, SvgIcon, Typography } from '@mui/material';
-import { DuneIcon, TikTok } from 'public/icons/footer/icons';
+import { GitHub, Telegram, Twitter } from '@mui/icons-material';
+import { Box, styled, SvgIcon } from '@mui/material';
 import { Link } from 'src/components/primitives/Link';
-import { useRootStore } from 'src/store/root';
-import { useShallow } from 'zustand/shallow';
-
-import DiscordIcon from '/public/icons/discord.svg';
-import LensLogoIcon from '/public/icons/lens-logo.svg';
 
 interface StyledLinkProps {
   onClick?: React.MouseEventHandler<HTMLAnchorElement>;
@@ -24,93 +17,23 @@ const StyledLink = styled(Link)<StyledLinkProps>(({ theme }) => ({
 
 const FOOTER_ICONS = [
   {
-    href: 'https://twitter.com/aave',
-    icon: <X />,
-    title: 'Twitter',
+    href: 'https://x.com/cp0xdotcom',
+    icon: <Twitter />,
+    title: 'X',
   },
   {
-    href: 'https://www.instagram.com/aave/',
-    icon: <Instagram />,
-    title: 'Instagram',
+    href: 'https://t.me/cp0xdotcom',
+    icon: <Telegram />,
+    title: 'Telegram',
   },
   {
-    href: 'https://www.tiktok.com/@aavelabs',
-    icon: <TikTok />,
-    title: 'TikTok',
-  },
-  {
-    href: 'https://www.linkedin.com/company/aavelabs/',
-    icon: <LinkedIn />,
-    title: 'Linkedin',
-  },
-  {
-    href: 'https://discord.com/invite/aave',
-    icon: <DiscordIcon />,
-    title: 'Discord',
-  },
-  {
-    href: 'https://dune.com/aavelabs',
-    icon: <DuneIcon />,
-    title: 'Dune',
-  },
-  {
-    href: 'https://github.com/aave',
+    href: 'https://github.com/cp0x-org',
     icon: <GitHub />,
     title: 'Github',
-  },
-  {
-    href: 'https://hey.xyz/u/aave',
-    icon: <LensLogoIcon />,
-    title: 'Aave on Lens',
   },
 ];
 
 export function AppFooter() {
-  const [setAnalyticsConfigOpen, setFeedbackOpen] = useRootStore(
-    useShallow((store) => [store.setAnalyticsConfigOpen, store.setFeedbackOpen])
-  );
-
-  const FOOTER_LINKS = [
-    {
-      href: 'https://aave.com/terms-of-service',
-      label: <Trans>Terms</Trans>,
-      key: 'Terms',
-    },
-    {
-      href: 'https://aave.com/privacy-policy/',
-      label: <Trans>Privacy</Trans>,
-      key: 'Privacy',
-    },
-    {
-      href: 'https://docs.aave.com/hub/',
-      label: <Trans>Docs</Trans>,
-      key: 'Docs',
-    },
-    {
-      href: 'https://docs.aave.com/faq/',
-      label: <Trans>FAQS</Trans>,
-      key: 'FAQS',
-    },
-    {
-      href: 'https://discord.com/invite/aave',
-      label: <Trans>Get Support</Trans>,
-      key: 'Get Support',
-      onClick: (event: React.MouseEvent) => {
-        event.preventDefault();
-        setFeedbackOpen(true);
-      },
-    },
-    {
-      href: '/',
-      label: <Trans>Manage analytics</Trans>,
-      key: 'Manage analytics',
-      onClick: (event: React.MouseEvent) => {
-        event.preventDefault();
-        setAnalyticsConfigOpen(true);
-      },
-    },
-  ];
-
   return (
     <Box
       sx={(theme) => ({
@@ -127,13 +50,6 @@ export function AppFooter() {
             : 'inset 0px 1px 0px rgba(255, 255, 255, 0.12)',
       })}
     >
-      <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-        {FOOTER_LINKS.map((link) => (
-          <StyledLink onClick={link.onClick} key={link.key} href={link.href}>
-            <Typography variant="caption">{link.label}</Typography>
-          </StyledLink>
-        ))}
-      </Box>
       <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
         {FOOTER_ICONS.map((icon) => (
           <StyledLink href={icon.href} key={icon.title}>
