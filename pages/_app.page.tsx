@@ -1,6 +1,7 @@
 import '/public/fonts/inter/inter.css';
 import '/src/styles/variables.css';
 
+import { AaveClient, AaveProvider } from '@aave/react';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { NoSsr } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -27,10 +28,6 @@ import createEmotionCache from '../src/createEmotionCache';
 import { AppGlobalStyles } from '../src/layouts/AppGlobalStyles';
 import { LanguageProvider } from '../src/libs/LanguageProvider';
 
-const SwitchModal = dynamic(() =>
-  import('src/components/transactions/Switch/SwitchModal').then((module) => module.SwitchModal)
-);
-
 const BridgeModal = dynamic(() =>
   import('src/components/transactions/Bridge/BridgeModal').then((module) => module.BridgeModal)
 );
@@ -48,11 +45,6 @@ const CollateralChangeModal = dynamic(() =>
     (module) => module.CollateralChangeModal
   )
 );
-const DebtSwitchModal = dynamic(() =>
-  import('src/components/transactions/DebtSwitch/DebtSwitchModal').then(
-    (module) => module.DebtSwitchModal
-  )
-);
 const EmodeModal = dynamic(() =>
   import('src/components/transactions/Emode/EmodeModal').then((module) => module.EmodeModal)
 );
@@ -66,7 +58,7 @@ const SupplyModal = dynamic(() =>
   import('src/components/transactions/Supply/SupplyModal').then((module) => module.SupplyModal)
 );
 const SwapModal = dynamic(() =>
-  import('src/components/transactions/Swap/SwapModal').then((module) => module.SwapModal)
+  import('src/components/transactions/Swap/modals/SwapModal').then((module) => module.SwapModal)
 );
 const WithdrawModal = dynamic(() =>
   import('src/components/transactions/Withdraw/WithdrawModal').then(
@@ -84,6 +76,7 @@ const ReadOnlyModal = dynamic(() =>
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
+export const client = AaveClient.create();
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: React.ReactElement) => React.ReactNode;
@@ -135,46 +128,46 @@ export default function MyApp(props: MyAppProps) {
         imageUrl="https://app.aave.com/aave-com-opengraph.png"
       />
       <NoSsr>
-        <LanguageProvider>
-          <WagmiProvider config={wagmiConfig}>
-            <QueryClientProvider client={queryClient}>
-              <ConnectKitProvider
-                onDisconnect={cleanLocalStorage}
-                onConnect={({ connectorId }) => setWalletType(connectorId)}
-              >
-                <Web3ContextProvider>
-                  <AppGlobalStyles>
-                    <ModalContextProvider>
-                      <SharedDependenciesProvider>
-                        <AppDataProvider>
-                          <GasStationProvider>
-                            {getLayout(<Component {...pageProps} />)}
-                            <SupplyModal />
-                            <WithdrawModal />
-                            <BorrowModal />
-                            <RepayModal />
-                            <CollateralChangeModal />
-                            <DebtSwitchModal />
-                            <ClaimRewardsModal />
-                            <EmodeModal />
-                            <SwapModal />
-                            <FaucetModal />
-                            <TransactionEventHandler />
-                            <SwitchModal />
-                            <StakingMigrateModal />
-                            <BridgeModal />
-                            <ReadOnlyModal />
-                          </GasStationProvider>
-                        </AppDataProvider>
-                      </SharedDependenciesProvider>
-                    </ModalContextProvider>
-                  </AppGlobalStyles>
-                </Web3ContextProvider>
-              </ConnectKitProvider>
-              <ReactQueryDevtools initialIsOpen={false} />
-            </QueryClientProvider>
-          </WagmiProvider>
-        </LanguageProvider>
+        <AaveProvider client={client}>
+          <LanguageProvider>
+            <WagmiProvider config={wagmiConfig}>
+              <QueryClientProvider client={queryClient}>
+                <ConnectKitProvider
+                  onDisconnect={cleanLocalStorage}
+                  onConnect={({ connectorId }) => setWalletType(connectorId)}
+                >
+                  <Web3ContextProvider>
+                    <AppGlobalStyles>
+                      <ModalContextProvider>
+                        <SharedDependenciesProvider>
+                          <AppDataProvider>
+                            <GasStationProvider>
+                              {getLayout(<Component {...pageProps} />)}
+                              <SupplyModal />
+                              <WithdrawModal />
+                              <BorrowModal />
+                              <RepayModal />
+                              <CollateralChangeModal />
+                              <ClaimRewardsModal />
+                              <EmodeModal />
+                              <SwapModal />
+                              <FaucetModal />
+                              <TransactionEventHandler />
+                              <StakingMigrateModal />
+                              <BridgeModal />
+                              <ReadOnlyModal />
+                            </GasStationProvider>
+                          </AppDataProvider>
+                        </SharedDependenciesProvider>
+                      </ModalContextProvider>
+                    </AppGlobalStyles>
+                  </Web3ContextProvider>
+                </ConnectKitProvider>
+                <ReactQueryDevtools initialIsOpen={false} />
+              </QueryClientProvider>
+            </WagmiProvider>
+          </LanguageProvider>
+        </AaveProvider>
       </NoSsr>
     </CacheProvider>
   );

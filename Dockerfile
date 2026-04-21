@@ -1,4 +1,4 @@
-FROM node:20-alpine AS deps
+FROM node:18-alpine AS deps
 WORKDIR /app
 
 COPY package.json yarn.lock ./
@@ -12,7 +12,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ENV NODE_ENV=production
-RUN yarn build   # создаст каталог .next
+RUN yarn build
 
 FROM node:18-alpine AS runner
 WORKDIR /app
