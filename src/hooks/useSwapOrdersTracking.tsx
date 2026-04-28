@@ -54,9 +54,7 @@ interface SwapOrdersTrackingContextType {
   hasActiveOrderForSellToken: (chainId: number, sellTokenAddress: string) => boolean;
 }
 
-const SwapOrdersTrackingContext = createContext<SwapOrdersTrackingContextType>(
-  {} as SwapOrdersTrackingContextType
-);
+const SwapOrdersTrackingContext = createContext<SwapOrdersTrackingContextType | null>(null);
 
 export const SwapOrdersTrackingProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [activeOrders, setActiveOrders] = useState<Map<string, OrderDetails>>(new Map());
